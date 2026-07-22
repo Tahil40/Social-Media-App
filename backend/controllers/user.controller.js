@@ -119,3 +119,21 @@ export const updateUserProfile = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export const getUserAndProfile = async (req, res) => {
+  try{
+    const {token} = req.body; 
+
+    const user = await userModel.findOne({token: token});
+
+    if(!user){
+      return res.status(404).json({message: "user not found"});
+    };
+
+    const userProfile = await profileModel.findOne({userId: user._id}).populate("userId", "name username email profilePicture");
+
+    return res.json(userProfile);
+  } catch (error){
+    return res.status(500).json({message: error.message});
+  };
+};
