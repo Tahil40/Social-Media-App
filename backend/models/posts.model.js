@@ -1,7 +1,10 @@
 import mongoose from "mongoose"; 
 
 const postsSchema = new mongoose.Schema({
-    userId: {},
+    userId: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User",
+    },
     likes: {
         type: Number, 
         default: 0, 
@@ -32,5 +35,5 @@ const postsSchema = new mongoose.Schema({
     }, 
 });
 
-const postsModel = new mongoose.model("Posts", postsSchema);
+const postsModel = mongoose.model("Posts", postsSchema);
 export default postsModel;
