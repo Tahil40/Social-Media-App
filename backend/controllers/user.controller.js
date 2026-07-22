@@ -71,16 +71,50 @@ export const loginUser = async (req, res) => {
 export const uploadProfilePicture = async (req, res) => {
   const { token } = req.body;
   try {
-    const user = await userModel.findOne({token: token});
+    const user = await userModel.findOne({ token: token });
 
-    if(!user){
-      return res.status(500).json({error: "user not found"});
-    };
+    if (!user) {
+      return res.status(500).json({ error: "user not found" });
+    }
 
     user.profilePicture = req.file.filename;
     await user.save();
 
-    return res.status(200).json({message: "Profile Picture Updated"});
+    return res.status(200).json({ message: "Profile Picture Updated" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateUserProfile = async (req, res) => {
+  try {
+    const { token, ...newUserData } = req.body;
+
+    const user_token = await userModel.findOne({ token: token });
+
+    if (!user_token) {
+      return res.status(404).json({ message: "user not found invalid token" });
+    }
+
+    const { email, username } = newUserData;
+
+    const user_email_username = await userModel.findOne({
+      $or: [{ email }, { username }],
+    });
+
+    if (user_email_username) {
+      if (
+        user_email_username ||
+        String(user_email_username._id) !== String(user_token._id)
+      ) {
+        return res.status(400).json({ message: "user already exists" });
+      };
+    }
+
+    Object.assign(user_token, newUserData);
+    await user_token.save();
+
+    return res.status(200).json({ message: "user updated successfully" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
