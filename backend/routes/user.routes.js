@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser, loginUser, uploadProfilePicture, updateUserProfile, getUserAndProfile } from "../controllers/user.controller.js";
+import { registerUser, loginUser, uploadProfilePicture, updateUserProfile, getUserAndProfile, updateProfileData } from "../controllers/user.controller.js";
 import multer from "multer";
 
 const router = Router();
@@ -19,5 +19,6 @@ router.route("/auth/register-user").post(registerUser);
 router.route("/auth/login-user").post(loginUser);
 router.route("/update-profile-picture").post(upload.single("profile-picture"), uploadProfilePicture);
 router.route("/get-userProfile").get(getUserAndProfile);
+router.route("/update-profile").put(updateProfileData);
 
 export default router;

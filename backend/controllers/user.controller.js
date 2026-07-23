@@ -108,7 +108,7 @@ export const updateUserProfile = async (req, res) => {
         String(user_email_username._id) !== String(user_token._id)
       ) {
         return res.status(400).json({ message: "user already exists" });
-      };
+      }
     }
 
     Object.assign(user_token, newUserData);
@@ -121,19 +121,43 @@ export const updateUserProfile = async (req, res) => {
 };
 
 export const getUserAndProfile = async (req, res) => {
-  try{
-    const {token} = req.body; 
+  try {
+    const { token } = req.body;
 
-    const user = await userModel.findOne({token: token});
+    const user = await userModel.findOne({ token: token });
 
-    if(!user){
-      return res.status(404).json({message: "user not found"});
-    };
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    }
 
-    const userProfile = await profileModel.findOne({userId: user._id}).populate("userId", "name username email profilePicture");
+    const userProfile = await profileModel
+      .findOne({ userId: user._id })
+      .populate("userId", "name username email profilePicture");
 
     return res.json(userProfile);
-  } catch (error){
-    return res.status(500).json({message: error.message});
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateProfileData = async (req, res) => {
+  try {
+    const { token, ...newProfileData } = req.body;
+
+    const user = await userModel.findOne({ token: token });
+
+    if (!user) {
+      return res.status(404).json({ error: "user not found" });
+    }
+
+    const user_profile = await profileModel.findOne({ userId: user._id });
+
+    Object.assign(user_profile, newProfileData);
+
+    await user_profile.save();
+
+    return res.status(200).json({ message: "profile updated" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   };
 };
