@@ -1,5 +1,6 @@
 import userModel from "../models/user.model";
 import postsModel from "../models/posts.model";
+import commentsModel from "../models/comments.model";
 
 export const activeCheck = (req, res) => {
     return res.status(200).json({message: "Running"});
@@ -67,3 +68,33 @@ export const deletePost = async (req, res) => {
         return res.status(500).json({error: error});
     };
 };
+
+export const commentPost = async (req, res) => {
+    try{
+        const {token, postId, commentBody} = req.body; 
+
+        const user_id = await userModel.findOne({token: token}).select("_id");
+
+        if(!user_id){
+            return res.status(404).json({message: "user not found"}); 
+        };
+
+        const post = await postsModel.findOne({_id: postId});
+
+        if(!post){
+            return res.status(404).json({message: "post not found"});
+        };
+
+        const comment = new commentsModel({
+            userId: user_id, 
+            postId: postId, 
+            body: commentBody,
+        });
+
+        await comment.save(); 
+
+        return res.status(200).json({message: "comment created"});
+    } catch (error) {
+        return res.status(500).json({message: error.message});
+    };
+}; 
