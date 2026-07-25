@@ -29,3 +29,13 @@ export const createPost = async (req, res) => {
         return res.status(500).json({message: "Server Error"});
     };
 };
+
+export const getAllPosts = async (req, res) => {
+    try{
+        const posts_data = await postsModel.find().populate("userId", "name username email profilePicture");
+
+        return res.status(200).json({posts_data});
+    } catch (error) {
+        return res.status(500).json({message: "Server Error"});
+    };
+}; 
