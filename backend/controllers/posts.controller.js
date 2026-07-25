@@ -116,3 +116,31 @@ export const getPostComments = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export const deleteComment = async (req, res) => {
+  try {
+    const { token, commentId } = req.body;
+
+    const user_id = await userModel.findOne({ token: token }).select("_id");
+
+    if (!user_id) {
+      return res.status(404).json({ message: "user not found" });
+    }
+
+    const comment = await commentsModel.findOne({ _id: commentId });
+
+    if (!comment) {
+      return res.status(404).json({ message: "comment not found" });
+    }
+
+    if (comment._id.toString() !== user_id.toString()) {
+      return res.status(401).json({ message: "unauthorized" });
+    }
+
+    await commentsModel.deleteOne({ _id: commentId });
+
+    return res.status(200).json({ message: "comment deleted" });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
