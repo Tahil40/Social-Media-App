@@ -3,6 +3,7 @@ import profileModel from "../models/profile.model";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { convertUserProfileToPDF } from "../utils/profileToPDF.js";
+import connectionsModel from "../models/connections.model.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -177,14 +178,53 @@ export const getAllUserProfiles = async (req, res) => {
 
 export const downloadUserProfile = async (req, res) => {
   try {
-    const userId = req.query.id; 
+    const userId = req.query.id;
 
-    const userProfile = await profileModel.findOne({userId: userId}).populate("userId", "name email username profilePicture");
+    const userProfile = await profileModel
+      .findOne({ userId: userId })
+      .populate("userId", "name email username profilePicture");
 
     const user_profile_pdf = await convertUserProfileToPDF(userProfile);
 
-    return res.status(200).json({"output_path": user_profile_pdf});
+    return res.status(200).json({ output_path: user_profile_pdf });
   } catch (error) {
     return res.status(500).json({ message: error.message });
+  }
+};
+
+export const sendConnectionRequest = async (req, res) => {
+  try {
+    const { token, connectionId } = req.body;
+
+    const user = await userModel.findOne({ token });
+
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    }
+
+    const connection_user = await userModel.findOne({ _id: connectionId });
+
+    if (!connection_user) {
+      return res.status(404).json({ message: "connection user not found" });
+    }
+
+    const existingRequest = await connectionsModel.findOne({
+      userId: user._id,
+      connectionId: connection_user._id,
+    });
+
+    if (existingRequest) {
+      return res.status(400).json({ message: "Request already send" });
+    }
+
+    const newRequest = new connectionsModel({
+      userId: user._id,
+      connectionId: connection_user._id,
+    });
+    await newRequest.save();
+
+    return res.status(200).json({ message: "Request send" });
+  } catch (error) {
+    return res.status(500).json({ message: "Server Error" });
   }
 };
