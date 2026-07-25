@@ -144,3 +144,21 @@ export const deleteComment = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export const incrementLikes = async (req, res) => {
+    const {postId} = req.body; 
+    try{
+        const post = await postsModel.findOne({_id: postId}); 
+
+        if(!post){
+            return res.status(404).json({message: "post not found"});
+        };
+
+        post.likes = post.likes + 1; 
+        await post.save(); 
+
+        return res.status(200).json({message: "like added"});
+    } catch (error){
+        return res.status(500).json({message: error.message});
+    };
+};
