@@ -14,11 +14,11 @@ export const convertUserProfileToPDF = async (userProfileData) => {
     document.fontSize(14).text(`Username: ${userProfileData.userId.username}`); 
     document.fontSize(14).text(`Email: ${userProfileData.userId.email}`);
     document.fontSize(14).text(`Bio: ${userProfileData.bio}`);
-    document.fontSize(14).text(`Current Position: ${userProfileData.currentPosition}`);
+    document.fontSize(14).text(`Current Position: ${userProfileData.currentPost}`);
 
     document.fontSize(14).text("Past Work: ");
     userProfileData.pastWork.forEach((element, index) => {
-        document.fontSize(14).text(`Company Name: ${element.companyName}`);
+        document.fontSize(14).text(`Company Name: ${element.company}`);
         document.fontSize(14).text(`Position: ${element.position}`);
         document.fontSize(14).text(`Years: ${element.years}`);
     });
