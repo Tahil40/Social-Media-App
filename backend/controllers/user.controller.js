@@ -268,3 +268,33 @@ export const fetchMyConnections = async (req, res) => {
     return res.status(500).json({ message: "Server Error" });
   }
 };
+
+export const connectionRequestStatus = async (req, res) => {
+  try {
+    const { token, status_type, requestId } = req.body;
+
+    const user = await userModel.findOne({ token });
+
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    }
+
+    const connection_user = await connectionsModel.findOne({ _id: requestId });
+
+    if (!connection_user) {
+      return res.status(404).json({ message: "connection not found" });
+    }
+
+    if (status_type == "accept") {
+      connection_user.status = true;
+    } else {
+      connection_user.status = false;
+    }
+
+    await connection_user.save();
+
+    return res.status(200).json({ message: "Request updated" });
+  } catch (error) {
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
