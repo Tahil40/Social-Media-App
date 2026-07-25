@@ -2,6 +2,7 @@ import userModel from "../models/user.model";
 import profileModel from "../models/profile.model";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import { convertUserProfileToPDF } from "../utils/profileToPDF.js";
 
 export const registerUser = async (req, res) => {
   try {
@@ -159,5 +160,31 @@ export const updateProfileData = async (req, res) => {
     return res.status(200).json({ message: "profile updated" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
-  };
+  }
+};
+
+export const getAllUserProfiles = async (req, res) => {
+  try {
+    const profiles = await profileModel
+      .find()
+      .populate("userId", "name username email profilePicture");
+
+    return res.status(200).json({ profiles });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const downloadUserProfile = async (req, res) => {
+  try {
+    const userId = req.query.id; 
+
+    const userProfile = await profileModel.findOne({userId: userId}).populate("userId", "name email username profilePicture");
+
+    const user_profile_pdf = await convertUserProfileToPDF(userProfile);
+
+    return res.status(200).json({"output_path": user_profile_pdf});
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
