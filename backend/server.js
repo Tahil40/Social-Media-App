@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(postRoutes);
 app.use(userRoutes);
 app.use(express.static("uploads"));
-
+                                                              
 const PORT = process.env.PORT || 3000; 
 const MONGOOSE_URI = process.env.MONGOOSE_URI || ""; 
 

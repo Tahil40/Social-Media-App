@@ -4,7 +4,7 @@ import multer from "multer";
 
 const router = Router();
 
-const storage = multer.diskStorage({
+const user_storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "uploads/");
     },
@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
     },
 });
 
-const upload = multer({storage: storage});
+const upload = multer({storage: user_storage});
 
 router.route("/auth/register-user").post(registerUser);
 router.route("/auth/login-user").post(loginUser);
