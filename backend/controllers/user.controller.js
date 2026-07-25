@@ -228,3 +228,43 @@ export const sendConnectionRequest = async (req, res) => {
     return res.status(500).json({ message: "Server Error" });
   }
 };
+
+export const getMyConnectionsRequests = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    const user = await userModel.findOne({ token });
+
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    }
+
+    const connections = await connectionsModel
+      .find({ userId: user._id })
+      .populate("connectionId", "name username email profilePicture");
+
+    return res.status(200).json({ connections });
+  } catch (error) {
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+export const fetchMyConnections = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    const user = await userModel.findOne({ token });
+
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    }
+
+    const fetch_connections = await connectionsModel
+      .find({ connectionId: user._id })
+      .populate("userId", "name username email profilePicture");
+
+    return res.status(200).json({ fetch_connections });
+  } catch (error) {
+    return res.status(500).json({ message: "Server Error" });
+  }
+};
