@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Geist, Geist_Mono } from "next/font/google";
-import styles from "@/styles/Home.module.css";
+import HomeComponent from "./components/HomeComponent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +22,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={`${geistSans.variable} ${geistMono.variable}`}>
-        <main></main>
+        <main>
+          {/* Home component */}
+          <HomeComponent/>
+        </main>
       </div>
     </>
   );
