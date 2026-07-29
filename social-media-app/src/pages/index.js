@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Geist, Geist_Mono } from "next/font/google";
-import HomeComponent from "./components/HomeComponent";
+import HomeComponent from "./components/Home/HomeComponent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,8 +23,8 @@ export default function Home() {
       </Head>
       <div className={`${geistSans.variable} ${geistMono.variable}`}>
         <main>
-          {/* Home component */}
-          <HomeComponent/>
+            {/* Home component */}
+            <HomeComponent />
         </main>
       </div>
     </>

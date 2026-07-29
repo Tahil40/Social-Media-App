@@ -1,12 +1,13 @@
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/router";  
 import styles from "@/styles/Home.module.css";
+import UserLayout from "@/layouts/userLayout";
 
 export default function HomeComponent(){
     const router = useRouter(); 
 
     return(
-        <>
+        <UserLayout>
         <div className={styles.container}>
             <div className={styles.mainContainer}>
                 <div className={styles.mainContainer_left}>
@@ -21,6 +22,6 @@ export default function HomeComponent(){
                 </div>
             </div>
         </div>
-        </>
+        </UserLayout>
     );
 };

@@ -1,39 +1,75 @@
-.container{
-    font-family: "Poppins";
-    padding: 1.2rem;
+.container {
+  font-family: "Poppins";
+  padding: 1.2rem;
 }
 
-.mainContainer{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-inline: 2rem;
-    gap: 4rem;
-    height: 80vh;
+.mainContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 2rem;
+  gap: 4rem;
+  height: 80vh;
 }
 
-.mainContainer_left{
-    flex: 0.5;
+.mainContainer_left {
+  flex: 0.5;
 }
 
-.mainContainer_right{
-    flex: 0.5;
+.mainContainer_right {
+  flex: 0.5;
 }
 
 .mainContainer_left > p:nth-child(1) {
-    font-size: 2.9rem;
+  font-size: 2.9rem;
+  background: -webkit-linear-gradient(45deg, #000000, #7c1515);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer_animation 3s linear infinite;
+}
+
+@keyframes shimmer_animation {
+  0% {
+    background: -webkit-linear-gradient(0deg, #000000, #bd5757);
+    background-clip: text;
+  }
+
+  50% {
+    background: -webkit-linear-gradient(90deg, #000000, #881f1f);
+    background-clip: text;
+  }
+
+  100% {
+    background: -webkit-linear-gradient(260deg, #000000, #741010);
+    background-clip: text;
+  }
 }
 
 .mainContainer_right > p:nth-child(2) {
-    color: #4d4d4d;
-    font-size: 1.7rem;
+  color: #4d4d4d;
+  font-size: 1.7rem;
 }
 
-.mainContainer_left > div.joinButton{
-    width: fit-content;
-    user-select: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 0.8rem;
-    font-size: 1.4rem;
+.mainContainer_left > div.joinButton {
+  width: fit-content;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.8rem;
+  font-size: 1.4rem;
+  background-color: rgb(197, 44, 208);
+  color: white;
+  padding-inline: 1.2rem;
+  padding-block: 0.6rem;
+  border-radius: 1.1rem;
+}
+
+.mainContainer_right {
+  padding: 2rem;
+  background-color: black;
+  border-radius: 2rem;
+}
+
+.mainContainer_right > img {
+  border-radius: 100%;
 }
