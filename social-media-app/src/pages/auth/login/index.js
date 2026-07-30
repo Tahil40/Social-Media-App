@@ -21,12 +21,34 @@ export default function Login() {
   return (
     <UserLayout>
       <div className={style.container}>
-          <div className={style.cardContainer}>
-            <div className={style.cardContainer_left}>
-              <p className={style.cardContainer_left_heading}>{IsSignInMethod ? "Sign In" : "Sign up"}</p>
+        <div className={style.cardContainer}>
+          <div className={style.cardContainer_left}>
+            <p className={style.cardContainer_left_heading}>
+              {IsSignInMethod ? "Sign In" : "Sign up"}
+            </p>
+
+            <div className={style.inputFormContainer}>
+              <div className={style.innerRow1}>
+                <input
+                className={style.inputUserNameField}
+                type="text"
+                placeholder="Username"
+              />
+              <input
+                className={style.inputNameField}
+                type="text"
+                placeholder="Name"
+              />
+              </div>
+              <div className={style.innerRow2}>
+                <input className={style.inputEmailField} type="email" placeholder="Email"/>
+                <input className={style.inputPasswordField} type="password" placeholder="Password"/>
+                <button className={style.inputSubmitField}>Submit</button>
+              </div>
             </div>
-            <div className={style.cardContainer_right}></div>
           </div>
+          <div className={style.cardContainer_right}></div>
+        </div>
       </div>
     </UserLayout>
   );

@@ -1,36 +1,119 @@
-.container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80svh;
-    background-color: snow;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80svh;
+  background-color: snow;
 }
 
-.cardContainer{
-    height: 70vh;
-    width: 70vw;
-    border-radius: 0.5rem;
-    background-color: white;
-    box-shadow: 0.5rem 0.5rem 0.9rem rgb(173, 173, 173);
-    overflow: hidden;
-    display: flex;
+.cardContainer {
+  height: 70vh;
+  width: 70vw;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0.5rem 0.5rem 0.9rem rgb(173, 173, 173);
+  overflow: hidden;
+  display: flex;
 }
 
-.cardContainer_left{
-    flex: 0.6rem;
-    text-align: center;
-    padding: 2rem;
+.cardContainer_left {
+  flex: 0.6rem;
+  text-align: center;
+  padding: 2rem;
 }
 
-.cardContainer_right{
-    flex: 0.4rem;
-    background-color: rgb(54, 4, 4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.cardContainer_right {
+  flex: 0.4rem;
+  background-color: rgb(54, 4, 4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.cardContainer_left_heading{
-    font-weight: bold;
-    font-size: 1.8rem;
+.cardContainer_left_heading {
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+.inputFormContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+
+.inputUserNameField {
+  padding-inline: 1.3rem;
+  padding-block: 0.8rem;
+  outline: none;
+  border: 1px solid silver;
+  border-radius: 0.6rem;
+  width: 100%;
+}
+
+.innerRow1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.innerRow2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.inputNameField {
+  padding-inline: 1.3rem;
+  padding-block: 0.8rem;
+  outline: none;
+  border: 1px solid silver;
+  border-radius: 0.6rem;
+  width: 100%;
+}
+
+.inputEmailField {
+  padding-inline: 1.3rem;
+  padding-block: 0.8rem;
+  outline: none;
+  border: 1px solid silver;
+  border-radius: 0.6rem;
+  width: 100%;
+}
+
+.inputPasswordField {
+  padding-inline: 1.3rem;
+  padding-block: 0.8rem;
+  outline: none;
+  border: 1px solid silver;
+  border-radius: 0.6rem;
+  width: 100%;
+}
+
+.inputSubmitField {
+  padding-inline: 1.3rem;
+  padding-block: 0.8rem;
+  outline: none;
+  border: 1px solid silver;
+  border-radius: 0.6rem;
+  width: 100%;
+}
+
+.inputSubmitField {
+  width: fit-content;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.8rem;
+  font-size: 1.4rem;
+  background-color: rgb(54, 4, 4);
+  color: white;
+  padding-inline: 1.2rem;
+  padding-block: 0.6rem;
+  border-radius: 0.6rem;
 }
