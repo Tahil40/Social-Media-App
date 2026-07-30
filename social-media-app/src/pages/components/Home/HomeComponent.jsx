@@ -13,7 +13,7 @@ export default function HomeComponent(){
                 <div className={styles.mainContainer_left}>
                     <p>Connect with Friends without Exaggeration</p>
                     <p>A True Social media platform, with stories no blufs!</p>
-                    <div className={styles.joinButton} onClick={()=> {router.push("/login")}}>
+                    <div className={styles.joinButton} onClick={()=> {router.push("/auth/login")}}>
                         <p>Join Now</p>
                     </div>
                 </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import UserLayout from "@/layouts/userLayout";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import style from "./auth.style.css";
+import style from "./auth.module.css";
 
 export default function Login() {
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function Login() {
   });
 
   useEffect(() => {
-    if (auth_state.loggedIn) {
+    if (auth_state?.loggedIn) {
       router.push("/dashboard");
     }
   }, []);
@@ -20,11 +20,13 @@ export default function Login() {
 
   return (
     <UserLayout>
-      <div className={style.cardContainer}>
-        <div className={style.cardContainer_left}>
-          <p>{IsSignInMethod ? "Sign In" : "Sign up"}</p>
-        </div>
-        <div className={style.cardContainer_right}></div>
+      <div className={style.container}>
+          <div className={style.cardContainer}>
+            <div className={style.cardContainer_left}>
+              <p className={style.cardContainer_left_heading}>{IsSignInMethod ? "Sign In" : "Sign up"}</p>
+            </div>
+            <div className={style.cardContainer_right}></div>
+          </div>
       </div>
     </UserLayout>
   );

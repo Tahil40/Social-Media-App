@@ -11,7 +11,7 @@ const NavbarComponent = () => {
             <nav className={styles.navbar}>
                 <h1 className={styles.heading1} onClick={()=>{router.push("/")}}>Pro Connect</h1>
                 <div className={styles.navbarOptionsContainer}>
-                    <div className={styles.joinButton} onClick={()=>{router.push("/login")}}>
+                    <div className={styles.joinButton} onClick={()=>{router.push("/auth/login")}}>
                         <p>Be a part</p>
                     </div>
                 </div>
