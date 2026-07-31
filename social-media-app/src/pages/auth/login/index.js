@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import UserLayout from "@/layouts/userLayout";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import style from "./auth.module.css";
+import { loginUser, registerUser } from "@/config/redux/action/authAction/AuthAction";
 
 export default function Login() {
+  const [Name, SetName] = useState("");
+  const [UserName, SetUserName] = useState(""); 
+  const [Email, SetEmail] = useState(""); 
+  const [Password, SetPassword] = useState(""); 
   const router = useRouter();
   const auth_state = useSelector((state) => {
     state.auth;
   });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (auth_state?.loggedIn) {
@@ -17,6 +23,18 @@ export default function Login() {
   }, []);
 
   const [IsSignInMethod, SetIsSignInMethod] = useState(false);
+
+  const handleLogin = () => {};
+
+  const handleSignUp = () => {};
+
+  const handleSubmit = () => {
+    if (IsSignInMethod) {
+      handleLogin();
+    } else {
+      handleSignUp();
+    }
+  };
 
   return (
     <UserLayout>
@@ -30,20 +48,41 @@ export default function Login() {
             <div className={style.inputFormContainer}>
               <div className={style.innerRow1}>
                 <input
-                className={style.inputUserNameField}
-                type="text"
-                placeholder="Username"
-              />
-              <input
-                className={style.inputNameField}
-                type="text"
-                placeholder="Name"
-              />
+                  className={style.inputUserNameField}
+                  type="text"
+                  placeholder="Username"
+                  value={UserName}
+                  onChange={(e) => {SetUserName(e.target.value)}}
+                />
+                <input
+                  className={style.inputNameField}
+                  type="text"
+                  placeholder="Name"
+                  value={Name}
+                  onChange={(e) => {SetName(e.target.value)}}
+                />
               </div>
               <div className={style.innerRow2}>
-                <input className={style.inputEmailField} type="email" placeholder="Email"/>
-                <input className={style.inputPasswordField} type="password" placeholder="Password"/>
-                <button className={style.inputSubmitField}>Submit</button>
+                <input
+                  className={style.inputEmailField}
+                  type="email"
+                  placeholder="Email"
+                  value={Email}
+                  onChange={(e) => {SetEmail(e.target.value)}}
+                />
+                <input
+                  className={style.inputPasswordField}
+                  type="password"
+                  placeholder="Password"
+                  value={Password}
+                  onChange={(e) => {SetPassword(e.target.value)}}
+                />
+                <button
+                  className={style.inputSubmitField}
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </div>

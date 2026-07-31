@@ -33,7 +33,7 @@ export const registerUser = async (req, res) => {
     const user_profile = new profileModel({ userId: register_user_result._id });
     await user_profile.save();
 
-    return res.status(200).json({ message: "user registered successfully" });
+    return res.status(200).json({ ok: true, message: "user registered successfully" });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
