@@ -39,3 +39,19 @@ export const registerUser = createAsyncThunk("user/create-account", async (user,
     return thunkAPI.rejectWithValue(error.response.data); 
   };
 });
+
+export const fetchUserProfile = createAsyncThunk("user/get-userProfile", async (user, thunkAPI) => {
+  try{
+    const response = await clientServer.get("/user/get-userProfile", {
+      params: {
+        token: user.token,    
+      },   
+    });
+
+    if(response.data.ok){
+      return thunkAPI.fulfillWithValue(response.data);
+    };
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  };
+});
