@@ -37,7 +37,7 @@ export const getAllPosts = async (req, res) => {
       .find()
       .populate("userId", "name username email profilePicture");
 
-    return res.status(200).json({ posts_data });
+    return res.status(200).json({ ok:true, posts_data });
   } catch (error) {
     return res.status(500).json({ message: "Server Error" });
   }
