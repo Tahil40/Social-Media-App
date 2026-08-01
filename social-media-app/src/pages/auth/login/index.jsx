@@ -7,6 +7,7 @@ import {
   loginUser,
   registerUser,
 } from "@/config/redux/action/authAction/AuthAction";
+import {emptyMessage} from "@/config/redux/reducer/authReducer/AuthReducer";
 
 export default function Login() {
   const [Name, SetName] = useState("");
@@ -18,6 +19,13 @@ export default function Login() {
     state.auth;
   });
   const dispatch = useDispatch();
+  const [IsSignInMethod, SetIsSignInMethod] = useState(false);
+
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+      router.push("/dashboard");
+    };
+  }, []);
 
   useEffect(() => {
     if (auth_state?.loggedIn) {
@@ -25,7 +33,9 @@ export default function Login() {
     }
   }, [auth_state?.loggedIn]);
 
-  const [IsSignInMethod, SetIsSignInMethod] = useState(false);
+  useEffect(() => {
+    dispatch(emptyMessage());
+  }, [IsSignInMethod]);
 
   const handleLogin = () => {
     dispatch(loginUser({ email: Email, password: Password }));
@@ -117,10 +127,13 @@ export default function Login() {
             </div>
           </div>
           <div className={style.cardContainer_right}>
-            
+            <p>{IsSignInMethod ? "New User Create Account?" : "Already Have an Account?"}</p>
+            <button className={style.toggle_button} onClick={() => {SetIsSignInMethod(!IsSignInMethod)}}>
+              {IsSignInMethod ? "Create Account" : "Sign In"}
+            </button>
           </div>
         </div>
       </div>
     </UserLayout>
   );
-}
+};

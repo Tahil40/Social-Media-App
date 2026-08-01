@@ -97,13 +97,14 @@
 }
 
 .inputSubmitField {
-  width: fit-content;
+  /* width: fit-content; */
+  width: 100%;
   user-select: none;
   cursor: pointer;
   transition: all 0.2s;
   margin-top: 0.8rem;
   font-size: 1.4rem;
-  background-color: rgb(54, 4, 4);
+  background-color: rgb(35, 65, 163);
   color: white;
   padding-inline: 1.2rem;
   padding-block: 0.6rem;
@@ -122,6 +123,25 @@
   flex: 0.4rem;
   background-color: rgb(54, 4, 4);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.cardContainer_right > p {
+  color: silver; 
+}
+
+.toggle_button{
+  width: fit-content;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 0.8rem;
+  font-size: 1.4rem;
+  background-color: silver;
+  color: black;
+  padding-inline: 1.2rem;
+  padding-block: 0.6rem;
+  border-radius: 0.6rem; 
 }
