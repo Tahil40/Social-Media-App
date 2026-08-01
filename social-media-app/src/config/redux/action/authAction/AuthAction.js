@@ -33,7 +33,7 @@ export const registerUser = createAsyncThunk("user/create-account", async (user,
     });
 
     if(response.data.ok){
-      
+      return thunkAPI.fulfillWithValue(response.data.message);
     };
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data); 

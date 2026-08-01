@@ -20,13 +20,17 @@ export default function Login() {
     if (auth_state?.loggedIn) {
       router.push("/dashboard");
     }
-  }, []);
+  }, [auth_state.loggedIn]);
 
   const [IsSignInMethod, SetIsSignInMethod] = useState(false);
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    dispatch(loginUser({email: Email, password: Password}));
+  };
 
-  const handleSignUp = () => {};
+  const handleSignUp = () => {
+    dispatch(registerUser({name: Name, username: UserName, email: Email, password: Password}));
+  };
 
   const handleSubmit = () => {
     if (IsSignInMethod) {
@@ -44,7 +48,6 @@ export default function Login() {
             <p className={style.cardContainer_left_heading}>
               {IsSignInMethod ? "Sign In" : "Sign up"}
             </p>
-
             <div className={style.inputFormContainer}>
               <div className={style.innerRow1}>
                 <input
