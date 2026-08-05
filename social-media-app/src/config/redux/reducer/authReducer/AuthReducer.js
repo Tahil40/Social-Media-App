@@ -79,6 +79,8 @@ const authSlice = createSlice({
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.isError = false;
         state.isLoading = false;
+        state.profileFetched = true; 
+        state.user = action.payload.profile; 
         state.isSuccess = true;
         state.message = {
           message: "Profile fetched",
@@ -92,7 +94,6 @@ const authSlice = createSlice({
       });
   },
 });
-
 
 export const {reset, handleLoginUser, emptyMessage} = authSlice.actions; 
 export default authSlice.reducer;
