@@ -22,7 +22,7 @@ const NavbarComponent = () => {
             Pro Connect
           </h1>
           <div className={styles.navbarOptionsContainer}>
-            {!authState.profileFetched ? (
+            {!authState?.profileFetched ? (
               <div
                 className={styles.joinButton}
                 onClick={() => {
@@ -32,8 +32,9 @@ const NavbarComponent = () => {
                 <p>Be a part</p>
               </div>
             ) : (
-                <div>
-                    
+                <div style={styles.profileContainer}>
+                    <p>Hey, {authState.user.userId.name}Alex</p>
+                    <p>Profile</p>
                 </div>
             )}
           </div>

@@ -8,7 +8,8 @@ const initialState = {
   isLoading: false,
   loggedIn: false,
   message: "",
-  profileFetched: false,
+  // profileFetched: false,
+  profileFetched: true, //for testing purpose....
   connections: [],
   connectionRequest: [],
 };

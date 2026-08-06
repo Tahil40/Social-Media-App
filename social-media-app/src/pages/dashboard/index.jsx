@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "@/config/redux/action/postAction/PostAction";
 import { fetchUserProfile } from "@/config/redux/action/authAction/AuthAction";
 import UserLayout from "@/layouts/userLayout";
+import DashboardLayout from "@/layouts/dashboardLayout";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -13,24 +14,27 @@ export default function Dashboard() {
     state.auth;
   });
 
-  useEffect(() => {
-    if (localStorage.getItem("token") === "null") {
-      router.push("/auth/login");
-    }
+  // useEffect(() => {
+  //   if (localStorage.getItem("token") === "null") {
+  //     router.push("/auth/login");
+  //   }
 
-    SetIsTokenPresent(true);
-  }, []);
+  //   SetIsTokenPresent(true);
+  // }, []);
 
-  useEffect(() => {
-    if (IsTokenPresent) {
-      dispatch(getAllPosts());
-      dispatch(fetchUserProfile({ token: localStorage.getItem("token") }));
-    }
-  }, [IsTokenPresent]);
+  // useEffect(() => {
+  //   if (IsTokenPresent) {
+  //     dispatch(getAllPosts());
+  //     dispatch(fetchUserProfile({ token: localStorage.getItem("token") }));
+  //   }
+  // }, [IsTokenPresent]);
 
   return (
     <UserLayout>
-      {authState.profileFetched && <div>Hey {authState.user.userId.name}</div>}
+      {/* {authState?.profileFetched && <div>Hey {authState?.user.userId.name}</div>} */}
+      <DashboardLayout>
+        <h1>Dashboard Page</h1>
+      </DashboardLayout>
     </UserLayout>
   );
 };
