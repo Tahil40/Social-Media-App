@@ -28,6 +28,12 @@ export default function Dashboard() {
   //     dispatch(fetchUserProfile({ token: localStorage.getItem("token") }));
   //   }
   // }, [IsTokenPresent]);
+  useEffect(() => {
+    if (authState?.isTokenThere) {
+      dispatch(getAllPosts());
+      dispatch(fetchUserProfile({ token: localStorage.getItem("token") }));
+    }
+  }, [authState?.isTokenThere]);
 
   return (
     <UserLayout>

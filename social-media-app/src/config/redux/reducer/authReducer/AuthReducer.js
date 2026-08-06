@@ -8,6 +8,7 @@ const initialState = {
   isLoading: false,
   loggedIn: false,
   message: "",
+  isTokenThere: false, 
   // profileFetched: false,
   profileFetched: true, //for testing purpose....
   connections: [],
@@ -24,6 +25,12 @@ const authSlice = createSlice({
     },
     emptyMessage: (state) => {
       state.message = ""; 
+    },
+    setIsTokenThere: (state) => {
+      state.isTokenThere = true; 
+    },
+    setNotIsTokenThere: (state) => {
+      state.isTokenThere = false; 
     },
   },
   extraReducers: (builder) => {
@@ -96,5 +103,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {reset, handleLoginUser, emptyMessage} = authSlice.actions; 
+export const {reset, handleLoginUser, emptyMessage, setIsTokenThere, setNotIsTokenThere} = authSlice.actions; 
 export default authSlice.reducer;

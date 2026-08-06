@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./index.module.css";
+import { useRouter } from "next/router";
+import { setIsTokenThere } from "@/config/redux/reducer/authReducer/AuthReducer";
+import { useDispatch } from "react-redux";
 
 export default function DashboardLayout({ children }) {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("token") === "null") {
+      router.push("/auth/login");
+    };
+
+    dispatch(setIsTokenThere());
+  }, []);
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.home_container}>
           <div className={styles.home_containerLeftBar}>
-            <div className={styles.sideBarOption}>
+            <div
+              className={styles.sideBarOption}
+              onClick={() => {
+                router.push("/dashboard");
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -24,7 +43,12 @@ export default function DashboardLayout({ children }) {
               </svg>
               <p>Scroll</p>
             </div>
-            <div className={styles.sideBarOption}>
+            <div
+              className={styles.sideBarOption}
+              onClick={() => {
+                router.push("/discover");
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -41,7 +65,12 @@ export default function DashboardLayout({ children }) {
               </svg>
               <p>Discover</p>
             </div>
-            <div className={styles.sideBarOption}>
+            <div
+              className={styles.sideBarOption}
+              onClick={() => {
+                router.push("/connections");
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -60,7 +89,9 @@ export default function DashboardLayout({ children }) {
             </div>
           </div>
           <div className={styles.home_containerFeedSection}>{children}</div>
-          <div className={styles.home_containerExtraSection}></div>
+          <div className={styles.home_containerExtraSection}>
+            <h3>Top Profiles</h3>
+          </div>
         </div>
       </div>
     </>
