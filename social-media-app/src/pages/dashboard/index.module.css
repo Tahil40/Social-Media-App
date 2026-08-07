@@ -1,0 +1,31 @@
+.scrollComponent{
+    display: flex;
+    justify-content: center;
+}
+
+.createPostContainer{
+    display: flex;
+    height: 10svh;
+    width: 70%;
+    padding-inline: 0.8rem;
+    padding-block: 0.2rem;
+    background-color: rgb(247, 245, 241);
+    border-radius: 0.5rem;
+}
+
+.createPostContainer > svg{
+    width: 7rem;
+}
+
+.createPostContainer > textarea{
+    width: 100%;
+    outline: none;
+    padding: 1rem;
+    border: 1px solid silver;
+    border-radius: 0.5rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.fabContainer > svg{
+    width: 6rem;
+}

@@ -94,8 +94,8 @@ export default function DashboardLayout({ children }) {
           <div className={styles.home_containerFeedSection}>{children}</div>
           <div className={styles.home_containerExtraSection}>
             <h3>Top Profiles</h3>
-            {authState.allProfilesFetched &&
-              authState.user.map((profile) => {
+            {authState?.allProfilesFetched &&
+              authState?.user.map((profile) => {
                 return (
                   <div key={profile._id} className={styles.ProfileContainer}>
                     <img src={profile.profile_pic} alt="" />
