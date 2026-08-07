@@ -2,16 +2,19 @@ import React, { useEffect } from "react";
 import styles from "./index.module.css";
 import { useRouter } from "next/router";
 import { setIsTokenThere } from "@/config/redux/reducer/authReducer/AuthReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function DashboardLayout({ children }) {
   const router = useRouter();
   const dispatch = useDispatch();
+  const authState = useSelector((state) => {
+    state.auth;
+  });
 
   useEffect(() => {
     if (localStorage.getItem("token") === "null") {
       router.push("/auth/login");
-    };
+    }
 
     dispatch(setIsTokenThere());
   }, []);
@@ -91,9 +94,18 @@ export default function DashboardLayout({ children }) {
           <div className={styles.home_containerFeedSection}>{children}</div>
           <div className={styles.home_containerExtraSection}>
             <h3>Top Profiles</h3>
+            {authState.allProfilesFetched &&
+              authState.user.map((profile) => {
+                return (
+                  <div key={profile._id} className={styles.ProfileContainer}>
+                    <img src={profile.profile_pic} alt="" />
+                    <p>{profile.name}</p>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>
     </>
   );
-}
+};

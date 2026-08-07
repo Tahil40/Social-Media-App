@@ -39,3 +39,8 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.profileContainer > p:nth-child(3){
+  font-weight: bold;
+  cursor: pointer;
+}
