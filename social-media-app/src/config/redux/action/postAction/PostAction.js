@@ -36,3 +36,22 @@ export const createPost = createAsyncThunk("/posts/create-post", async (userData
         return thunkAPI.rejectWithValue(error.response.data); 
     }
 });
+
+export const deletePost = createAsyncThunk("/posts/delete-post", async (postId, thunkAPI) => {
+    try{
+        const response = await clientServer.delete("/post/delete-post", {
+            data: {
+                token: localStorage.getItem("token"), 
+                post_id: postId,
+            }
+        });
+
+        if(response.data == 200){
+            return thunkAPI.fulfillWithValue("Post Deleted");
+        } else {
+            return thunkAPI.rejectWithValue("Error: Post Not Delete");
+        };
+    } catch(error){
+        return thunkAPI.rejectWithValue(error.response.data);
+    }
+});

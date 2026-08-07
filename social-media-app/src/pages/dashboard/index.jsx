@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPosts, createPost } from "@/config/redux/action/postAction/PostAction";
+import {
+  getAllPosts,
+  createPost,
+} from "@/config/redux/action/postAction/PostAction";
 import {
   fetchUserProfile,
   fetchAllUser,
@@ -49,12 +52,12 @@ export default function Dashboard() {
     }
   }, [authState?.isTokenThere]);
 
-  const handlePostUpload  = () => {
-    dispatch(createPost({file: FileContent, body: PostContent}));
+  const handlePostUpload = () => {
+    dispatch(createPost({ file: FileContent, body: PostContent }));
     SetPostContent("");
     SetFileContent(null);
   };
- 
+
   return (
     <UserLayout>
       {/* {authState?.profileFetched && <div>Hey {authState?.user.userId.name}</div>} */}
@@ -93,30 +96,60 @@ export default function Dashboard() {
               />
               {PostContent.length > 0 && (
                 <div className={styles.uploadContainer}>
-                <label htmlFor="uploadFile">
-                  <div className={styles.fabContainer}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="size-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 4.5v15m7.5-7.5h-15"
-                      />
-                    </svg>
-                  </div>
-                </label>
-                {FileContent && (
-                  <button onClick={handlePostUpload}>Upload</button>
-                )}
+                  <label htmlFor="uploadFile">
+                    <div className={styles.fabContainer}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="size-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 4.5v15m7.5-7.5h-15"
+                        />
+                      </svg>
+                    </div>
+                  </label>
+                  {FileContent && (
+                    <button onClick={handlePostUpload}>Upload</button>
+                  )}
                 </div>
               )}
-              <input type="file" hidden id="uploadFile" onChange={(e) => {SetFileContent(e.target.files[0])}} />
+              <input
+                type="file"
+                hidden
+                id="uploadFile"
+                onChange={(e) => {
+                  SetFileContent(e.target.files[0]);
+                }}
+              />
+            </div>
+            <div className={styles.postsContainer}>
+              {postState.posts.map((post) => {
+                return (
+                  <div className={styles.singleContainer}>
+                    <div className={styles.singleCardProfileContainer}>
+                      <img
+                        className={styles.userProfile}
+                        src=""
+                        alt="loading..."
+                      />
+                      <div className={styles}>
+                        <p>{post.userId.name}</p>
+                        <p>@{post.userId.username}</p>
+                        <p>{post.body}</p>
+                        <div>
+                          <img src="" alt="" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}

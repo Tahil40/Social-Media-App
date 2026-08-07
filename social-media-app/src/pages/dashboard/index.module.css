@@ -1,12 +1,13 @@
 .scrollComponent{
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .createPostContainer{
     display: flex;
     height: 10svh;
-    width: 70%;
+    width: 100%;
     padding-inline: 0.8rem;
     padding-block: 0.2rem;
     background-color: rgb(247, 245, 241);
@@ -33,4 +34,22 @@
 .uploadContainer{
     display: flex;
     gap: 0.5rem;
+}
+
+.singleContainer{
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+    border-bottom: 1px solid rgb(179, 179, 179);
+}
+
+.singleCardProfileContainer{
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.2rem;
+}
+
+.singleCardProfileContainer > img{
+    width: 10%;
+    border-radius: 50%;
 }
