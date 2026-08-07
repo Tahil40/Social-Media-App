@@ -29,3 +29,8 @@
 .fabContainer > svg{
     width: 6rem;
 }
+
+.uploadContainer{
+    display: flex;
+    gap: 0.5rem;
+}

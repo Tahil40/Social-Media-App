@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { getAllPosts } from "../../action/postAction/PostAction";
+import { getAllPosts, createPost } from "../../action/postAction/PostAction";
 
 const initialState = {
     posts: [],
@@ -40,6 +40,20 @@ const postSlice = createSlice({
             state.message = {
                 message: action.payload.message, 
             };
+        })
+        .addCase(createPost.pending, (state) => {
+            state.isLoading = true; 
+            state.isError = false; 
+        })
+        .addCase(createPost.fulfilled, (state, action) => {
+            state.isLoading = false; 
+            state.isError = false; 
+            state.message = action.payload;
+        })
+        .addCase(createPost.rejected, (state) => {
+            state.isError = true; 
+            state.isLoading = false; 
+            state.message = "Error: Post Uploading Failed";
         });
     },
 });

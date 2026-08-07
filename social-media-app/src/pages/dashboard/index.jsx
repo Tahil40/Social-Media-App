@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPosts } from "@/config/redux/action/postAction/PostAction";
+import { getAllPosts, createPost } from "@/config/redux/action/postAction/PostAction";
 import {
   fetchUserProfile,
   fetchAllUser,
@@ -20,7 +20,10 @@ export default function Dashboard() {
     state.auth;
   });
   const [PostContent, SetPostContent] = useState("");
-  const [FileContent, SetFileContent] = useState();
+  const [FileContent, SetFileContent] = useState(null);
+  const postState = useSelector((state) => {
+    state.post;
+  });
 
   // useEffect(() => {
   //   if (localStorage.getItem("token") === "null") {
@@ -46,6 +49,12 @@ export default function Dashboard() {
     }
   }, [authState?.isTokenThere]);
 
+  const handlePostUpload  = () => {
+    dispatch(createPost({file: FileContent, body: PostContent}));
+    SetPostContent("");
+    SetFileContent(null);
+  };
+ 
   return (
     <UserLayout>
       {/* {authState?.profileFetched && <div>Hey {authState?.user.userId.name}</div>} */}
@@ -83,6 +92,7 @@ export default function Dashboard() {
                 placeholder="What's in yout mind?"
               />
               {PostContent.length > 0 && (
+                <div className={styles.uploadContainer}>
                 <label htmlFor="uploadFile">
                   <div className={styles.fabContainer}>
                     <svg
@@ -101,6 +111,10 @@ export default function Dashboard() {
                     </svg>
                   </div>
                 </label>
+                {FileContent && (
+                  <button onClick={handlePostUpload}>Upload</button>
+                )}
+                </div>
               )}
               <input type="file" hidden id="uploadFile" onChange={(e) => {SetFileContent(e.target.files[0])}} />
             </div>
