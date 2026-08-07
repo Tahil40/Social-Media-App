@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser, fetchUserProfile } from "../../action/authAction/AuthAction";
+import { loginUser, registerUser, fetchUserProfile, fetchAllUser } from "../../action/authAction/AuthAction";
 
 const initialState = {
   user: [],
@@ -11,6 +11,7 @@ const initialState = {
   isTokenThere: false, 
   // profileFetched: false,
   profileFetched: true, //for testing purpose....
+  allProfilesFetched: false, 
   connections: [],
   connectionRequest: [],
 };
@@ -99,6 +100,24 @@ const authSlice = createSlice({
         state.isSuccess = false;
         state.isLoading = false;
         state.message = action.payload;
+      })
+      .addCase(fetchAllUser.pending, (state) => {
+        state.isLoading = true; 
+        state.isError = false; 
+        state.isSuccess = false; 
+      })
+      .addCase(fetchAllUser.fulfilled, (state, action) => {
+        state.isLoading = false; 
+        state.isError = false; 
+        state.isSuccess = true; 
+        state.allProfilesFetched = true; 
+        state.user = action.payload.profiles; 
+      })
+      .addCase(fetchAllUser.rejected, (state, action) => {
+        state.isError = true; 
+        state.isLoading = false; 
+        state.isSuccess = false; 
+        state.message =  action.payload.message; 
       });
   },
 });

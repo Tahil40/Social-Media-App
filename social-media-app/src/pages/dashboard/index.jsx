@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "@/config/redux/action/postAction/PostAction";
-import { fetchUserProfile } from "@/config/redux/action/authAction/AuthAction";
+import { fetchUserProfile, fetchAllUser } from "@/config/redux/action/authAction/AuthAction";
 import UserLayout from "@/layouts/userLayout";
 import DashboardLayout from "@/layouts/dashboardLayout";
 
@@ -33,6 +33,9 @@ export default function Dashboard() {
       dispatch(getAllPosts());
       dispatch(fetchUserProfile({ token: localStorage.getItem("token") }));
     }
+    if (!authState.allProfilesFetched) {
+      dispatch(fetchAllUser());
+    }
   }, [authState?.isTokenThere]);
 
   return (
@@ -43,4 +46,4 @@ export default function Dashboard() {
       </DashboardLayout>
     </UserLayout>
   );
-};
+}

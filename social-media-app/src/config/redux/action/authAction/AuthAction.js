@@ -55,3 +55,13 @@ export const fetchUserProfile = createAsyncThunk("user/get-userProfile", async (
     return thunkAPI.rejectWithValue(error.response.data);
   };
 });
+
+export const fetchAllUser = createAsyncThunk("user/get-all-users", async (_, thunkAPI) => {
+  try{
+    const response = await clientServer.get("/user/get-user-profiles"); 
+
+    return thunkAPI.fulfillWithValue(response.data);
+  } catch(error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  };
+});
