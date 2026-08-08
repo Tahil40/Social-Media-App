@@ -58,6 +58,14 @@ export default function Dashboard() {
     SetFileContent(null);
   };
 
+  /* post share functionality in the case of twitter */
+  const twitter_share = (post) => {
+    const text = encodeURIComponent(post.body);
+    const url = encodeURIComponent("apnacollege.in");
+    const twitterURL = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+    window.open(twitterURL, "_blank");
+  };
+
   return (
     <UserLayout>
       {/* {authState?.profileFetched && <div>Hey {authState?.user.userId.name}</div>} */}
