@@ -113,7 +113,10 @@ export const getPostComments = async (req, res) => {
       return res.status(404).json({ message: "post not found" });
     }
 
-    return res.status(200).json({ comments: post.comment });
+    const fetch_comments = await commentsModel.find({postId: postId}).populate("userId", "username name");
+
+    // return res.status(200).json({ comments: post.comment });
+    return res.status(200).json({ comments: fetch_comments.reverse() });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

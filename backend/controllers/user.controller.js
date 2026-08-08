@@ -299,3 +299,21 @@ export const connectionRequestStatus = async (req, res) => {
     return res.status(500).json({ message: "Server Error" });
   }
 };
+
+export const getUserProfileAndUserBasedOnUsername = async (req, res) => {
+  try{
+    const {username} = req.query; 
+
+    const user = await userModel.findOne({username}); 
+
+    if(!user){
+      return res.status(404).json({message: "user not found"});
+    }; 
+
+    const userProfile = await profileModel.findOne({userId: user._id}).populate("userId", "name username email profilePicture");
+
+    return res.json({"profile": userProfile});
+  } catch (error) {
+    return res.status(500).json({message: error.message });
+  }
+};
