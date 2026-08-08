@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { getAllPosts, createPost, deletePost, incrementPostLikes } from "../../action/postAction/PostAction";
+import { getAllPosts, createPost, deletePost, incrementPostLikes, getAllComments } from "../../action/postAction/PostAction";
 
 const initialState = {
     posts: [],
@@ -72,7 +72,10 @@ const postSlice = createSlice({
         })
         .addCase(incrementPostLikes.pending, (state) => {})
         .addCase(incrementPostLikes.fulfilled, (state, action) => {})
-        .addCase(incrementPostLikes.rejected, (state) => {});
+        .addCase(incrementPostLikes.rejected, (state) => {})
+        .addCase(getAllComments.pending, (state) => {})
+        .addCase(getAllComments.fulfilled, (state, action) => {})
+        .addCase(getAllComments.rejected, (state) => {});
     },
 });
 

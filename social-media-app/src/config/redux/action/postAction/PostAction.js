@@ -63,11 +63,42 @@ export const incrementPostLikes = createAsyncThunk("/posts/incrementLike", async
         }); 
 
         if(response.status == 200){
-            return thunkAPI.fulfillWithValue("you like the post");
+            return thunkAPI.fulfillWithValue(response.data);
         } else {
             return thunkAPI.rejectWithValue("Error: post like failed");
         };
     } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data);
+    }
+});
+
+export const getAllComments = createAsyncThunk("/posts/getAllComments", async (postData, thunkAPI) => {
+    try{
+        const response = await clientServer.get("/post/get-post-comments", {
+            params: {
+                postId: postData.postId,
+            }, 
+        }); 
+
+        return response.fulfillWithValue({
+            comments: response.data, 
+            postId: postData.postId,
+        });
+    } catch(error) {
+        return thunkAPI.rejectWithValue(error.response.data);
+    }
+});
+
+export const postComment = createAsyncThunk("", async (commentData, thunkAPI) => {
+    try{
+        const response = await clientServer.post("/post/create-post-comment", {
+            token: localStorage.getItem("token"), 
+            post_id: commentData.post_id, 
+            commentBody: commentData.body,  
+        }); 
+
+        return thunkAPI.fulfillWithValue(response.data);
+    } catch(error) {
         return thunkAPI.rejectWithValue(error.response.data);
     }
 });

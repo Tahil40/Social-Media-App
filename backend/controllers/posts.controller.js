@@ -103,7 +103,9 @@ export const commentPost = async (req, res) => {
 
 export const getPostComments = async (req, res) => {
   try {
-    const { postId } = req.body;
+    // const { postId } = req.body;
+    // const { postId } = req.params;
+    const { postId } = req.query;
 
     const post = await postsModel.findOne({ _id: postId });
 
