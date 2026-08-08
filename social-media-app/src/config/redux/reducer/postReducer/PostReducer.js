@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import { getAllPosts, createPost, deletePost } from "../../action/postAction/PostAction";
+import { getAllPosts, createPost, deletePost, incrementPostLikes } from "../../action/postAction/PostAction";
 
 const initialState = {
     posts: [],
@@ -69,7 +69,10 @@ const postSlice = createSlice({
             state.isError = true; 
             state.isLoading = false; 
             state.message = "Error: Delete Post Failed";
-        });
+        })
+        .addCase(incrementPostLikes.pending, (state) => {})
+        .addCase(incrementPostLikes.fulfilled, (state, action) => {})
+        .addCase(incrementPostLikes.rejected, (state) => {});
     },
 });
 
